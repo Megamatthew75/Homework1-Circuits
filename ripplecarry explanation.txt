@@ -1,0 +1,17 @@
+The ripple-carry is made to handle 4 bits by simply stacking 4, 1 bit full adders, and taking the Coutput of each one and using it as the next adder's Cinput.
+
+The carrying works properly, where you may take a previous adder and any sum that passes 2 will be sent into cout to be carried into the next adder, and so on. 
+
+Examples written on the paper (second page):
+1. I expect that when testing inputs A0=1 and Cin=1, S0=0 and C1=0 with both off, while C0=1 and S1=1, both on. 
+In testing with enabling A0 and Cin, S0 of course disables since we're now carrying out the value from the first full adder, Full Adder 0, into the second, Full Adder 1. Because the number of inputs in FA1 is odd, Full Adder 1 will have a sum, as we see by S1 lighting up. However, given there's only one input, there's not enough to allow a second carry, so C1 stays off.
+
+2. I expect when testing inputs A1=1, B1=1, A2=1, B2=1 I'll see:
+S0=0, C0=0, 
+S1=0, C1=1, 
+S2=1, C2=1, 
+S3=1, and Cout=0
+In testing with enabling these inputs, I see S0 and C0 of course disabled as we are an adder above that, and our outputs won't travel backwards. I also observe the sum of Full Adder 1 (the second adder) to be zero as expected, as the amount is even and greater than 1, so we carry it as the input to the next adder. In the next adder, Full Adder 2, all inputs are now enabled which results in an odd amount of inputs, leaving us with both a sum S2 and a carried C2. Next, there is only one full adder left, Full Adder 3. S3 will be enabled as the C2 is carried into FA3, while Cout will be disabled as there are no inputs active on FA3 aside from C2.
+
+3. I expect when testing input Cin=1, I will see S0=1 and C0=0.
+In testing, when enabling only Cin in the first full adder, Full Adder 0, due to an odd amount of inputs our sum S0 is enabled, and since we don't have 2 or more inputs to allow us to carry over with C0, C0 stays disabled. The only enabled output in this example is S0.
